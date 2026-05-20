@@ -20,8 +20,7 @@
 </head>
 <body>
 <div class="d-flex">
-    <nav class="sidebar d-flex flex-column min-vh-100">
-        <!-- Bagian Menu Atas -->
+    <nav class="sidebar d-flex flex-column vh-100 position-sticky top-0">
         <div>
             <div class="p-4 text-center">
                 <h4>IoT PLTS</h4>
@@ -35,7 +34,6 @@
             </a>
         </div>
 
-        <!-- Bagian Logout (Terdorong ke bawah karena mt-auto) -->
         <form method="POST" action="{{ route('logout') }}" class="mt-auto p-3 mb-3">
             @csrf
             <a href="{{ route('logout') }}" onclick="event.preventDefault(); this.closest('form').submit();" class="text-danger">
