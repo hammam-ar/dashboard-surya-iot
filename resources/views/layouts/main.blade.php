@@ -20,21 +20,25 @@
 </head>
 <body>
 <div class="d-flex">
-    <nav class="sidebar">
-        <div class="p-4 text-center">
-            <h4>IoT PLTS</h4>
-            <hr>
+    <nav class="sidebar d-flex flex-column min-vh-100">
+        <!-- Bagian Menu Atas -->
+        <div>
+            <div class="p-4 text-center">
+                <h4>IoT PLTS</h4>
+                <hr>
+            </div>
+            <a href="{{ url('/') }}" class="{{ Request::is('/') ? 'active' : '' }}">
+                <i class="fa fa-tachometer-alt me-2"></i> Dashboard
+            </a>
+            <a href="{{ url('/history') }}" class="{{ Request::is('history') ? 'active' : '' }}">
+                <i class="fa fa-history me-2"></i> History Data
+            </a>
         </div>
-        <a href="{{ url('/') }}" class="{{ Request::is('/') ? 'active' : '' }}">
-            <i class="fa fa-tachometer-alt me-2"></i> Dashboard
-        </a>
-        <a href="{{ url('/history') }}" class="{{ Request::is('history') ? 'active' : '' }}">
-            <i class="fa fa-history me-2"></i> History Data
-        </a>
 
-        <form method="POST" action="{{ route('logout') }}" class="mt-auto pt-3">
+        <!-- Bagian Logout (Terdorong ke bawah karena mt-auto) -->
+        <form method="POST" action="{{ route('logout') }}" class="mt-auto p-3 mb-3">
             @csrf
-            <a href="route('logout')" onclick="event.preventDefault(); this.closest('form').submit();" class="text-danger">
+            <a href="{{ route('logout') }}" onclick="event.preventDefault(); this.closest('form').submit();" class="text-danger">
                 <i class="fa fa-sign-out-alt me-2"></i> Keluar
             </a>
         </form>
