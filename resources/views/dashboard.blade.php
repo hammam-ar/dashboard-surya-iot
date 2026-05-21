@@ -48,7 +48,7 @@
             <div class="col-md-8">
                 <div class="card p-4 shadow-sm">
                     <div class="d-flex justify-content-between align-items-center mb-3">
-                        <h5 class="m-0">Grafik Performa (15 Data Terakhir)</h5>
+                        <h5 class="m-0">Grafik Performa (30 Data Terakhir)</h5>
                         <div class="btn-group">
                             <button id="btn-tegangan" class="btn btn-primary btn-sm shadow-sm" onclick="ubahModeGrafik('tegangan')">Tegangan (V)</button>
                             <button id="btn-arus" class="btn btn-outline-primary btn-sm shadow-sm" onclick="ubahModeGrafik('arus')">Arus (mA)</button>
