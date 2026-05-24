@@ -48,18 +48,19 @@ class SubscribeMqtt extends Command
 
                 if (json_last_error() === JSON_ERROR_NONE) {
                     try {
-                        // Simpan ke database menggunakan nama kolom yang BARU
+                        // Simpan ke database dengan tambahan s_relay_charge
                         SensorData::create([
-                            'v_in'      => $data['v_in'] ?? 0,
-                            'v_out'     => $data['v_out'] ?? 0,
-                            'a_in'      => $data['a_in'] ?? 0,
-                            'a_out'     => $data['a_out'] ?? 0,
-                            'suhu'      => $data['suhu'] ?? 0,
-                            'soc'       => $data['soc'] ?? 0,
-                            's_charge'  => $data['s_charge'] ?? 'Non-Aktif',
-                            's_fan'     => $data['s_fan'] ?? 'OFF',
-                            's_lamp1'   => $data['s_lamp1'] ?? 'OFF',
-                            's_lamp2'   => $data['s_lamp2'] ?? 'OFF',
+                            'v_in'           => $data['v_in'] ?? 0,
+                            'v_out'          => $data['v_out'] ?? 0,
+                            'a_in'           => $data['a_in'] ?? 0,
+                            'a_out'          => $data['a_out'] ?? 0,
+                            'suhu'           => $data['suhu'] ?? 0,
+                            'soc'            => $data['soc'] ?? 0,
+                            's_relay_charge' => $data['s_relay_charge'] ?? 'OFF', // <-- AMBIL DATA BARU
+                            's_charge'       => $data['s_charge'] ?? 'Non-Aktif',
+                            's_fan'          => $data['s_fan'] ?? 'OFF',
+                            's_lamp1'        => $data['s_lamp1'] ?? 'OFF',
+                            's_lamp2'        => $data['s_lamp2'] ?? 'OFF',
                         ]);
                         $this->info("Data berhasil disimpan ke database!");
                     } catch (\Exception $e) {

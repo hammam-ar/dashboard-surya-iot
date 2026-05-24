@@ -19,6 +19,7 @@ return new class extends Migration
             $table->decimal('a_out', 8, 1);
             $table->decimal('suhu', 5, 3);
             $table->decimal('soc', 5, 2);
+            $table->string('s_relay_charge', 10); // <-- INI WADAH BARUNYA
             $table->string('s_charge', 20);
             $table->string('s_fan', 10);
             $table->string('s_lamp1', 10);
