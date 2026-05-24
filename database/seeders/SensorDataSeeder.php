@@ -49,8 +49,8 @@ class SensorDataSeeder extends Seeder
                 's_fan'          => rand(0, 1) ? 'ON' : 'OFF', // Status acak kipas dan lampu
                 's_lamp1'        => rand(0, 1) ? 'ON' : 'OFF',
                 's_lamp2'        => rand(0, 1) ? 'ON' : 'OFF',
-                'created_at'     => $waktuMulai->copy(),
-                'updated_at'     => $waktuMulai->copy(),
+                'created_at'     => $waktuMulai->copy()->toDateTimeString(),
+                'updated_at'     => $waktuMulai->copy()->toDateTimeString(),
             ];
 
             // Mencegah RAM kelebihan beban dengan menyimpan per 500 baris
