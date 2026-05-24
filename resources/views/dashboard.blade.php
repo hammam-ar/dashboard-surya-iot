@@ -87,7 +87,7 @@
                     <hr>
 
                     <div class="d-flex justify-content-between align-items-center mb-3">
-                        <span>Kipas Pendingin <br><small class="text-muted" id="status_fan">Status: -</small></span>
+                        <span>Kipas <br><small class="text-muted" id="status_fan">Status: -</small></span>
                         <div class="form-check form-switch m-0 p-0 d-flex align-items-center">
                             <input class="form-check-input ms-0" type="checkbox" id="switch_fan" onchange="kirimPerintahToggle('fan', this.checked)">
                         </div>
@@ -128,14 +128,14 @@
 
                 datasets: [
                     {
-                        label: 'Tegangan Input (V)', /* <-- UBAH DI SINI */
+                        label: 'Tegangan Input (V)',
                         data: [],
                         borderColor: '#3498db',
                         backgroundColor: 'rgba(52, 152, 219, 0.1)',
                         tension: 0.4
                     },
                     {
-                        label: 'Tegangan Keluar (V)', /* <-- UBAH DI SINI */
+                        label: 'Tegangan Keluar (V)',
                         data: [],
                         borderColor: '#e74c3c',
                         backgroundColor: 'rgba(231, 76, 60, 0.1)',
