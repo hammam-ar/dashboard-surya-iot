@@ -141,7 +141,7 @@
         </div>
 
         <div class="card p-4 mb-4 shadow-sm">
-            <canvas id="grafikHistory" style="max-height: 400px;"></canvas>
+            <canvas id="grafikHistory" style="min-height: 300px; max-height: 400px;width: 100%;"></canvas>
         </div>
 
         <div class="card p-0 shadow-sm overflow-hidden mb-5">

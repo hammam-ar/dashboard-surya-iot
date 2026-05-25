@@ -77,7 +77,7 @@
                             </button>
                         </div>
                     </div>
-                    <canvas id="grafikSensor" style="max-height: 300px;"></canvas>
+                    <canvas id="grafikSensor" style="min-height: 250px; max-height: 300px; width: 100%;"></canvas>
                 </div>
             </div>
 
@@ -145,6 +145,7 @@
             },
             options: {
                 responsive: true,
+                maintainAspectRatio: false,
                 scales: { y: { type: 'linear', display: true, position: 'left' } }
             }
         });
