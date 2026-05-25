@@ -138,7 +138,7 @@ class DashboardController extends Controller
             $chartQuery->chunk(1000, function ($rows) use ($step, &$index, &$waktu, &$v_in, &$v_out, &$a_in, &$a_out, &$suhu, &$soc) {
                 foreach ($rows as $row) {
                     if ($index % $step == 0) {
-                        $waktu[]        = $row->created_at->format('d/m/y H:i');
+                        $waktu[]        = $row->created_at->format('d/m/y H:i:s');
                         $v_in[]         = $row->v_in;
                         $v_out[]        = $row->v_out;
                         $a_in[]         = $row->a_in;
@@ -153,7 +153,7 @@ class DashboardController extends Controller
             // Jika datanya masih sedikit, langsung ambil semuanya tanpa penyusutan
             $chartData = $chartQuery->get();
             foreach ($chartData as $row) {
-                $waktu[]        = $row->created_at->format('d/m/y H:i');
+                $waktu[]        = $row->created_at->format('d/m/y H:i:s');
                 $v_in[]         = $row->v_in;
                 $v_out[]        = $row->v_out;
                 $a_in[]         = $row->a_in;
