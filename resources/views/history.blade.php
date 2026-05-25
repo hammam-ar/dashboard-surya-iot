@@ -344,7 +344,7 @@
                 })
                 .catch(err => console.error("Error mengambil data:", err));
         }
-
+        //history
         ambilDataHistory();
 
         function downloadLaporan() {
