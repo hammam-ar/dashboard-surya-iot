@@ -1,5 +1,5 @@
 <?php
-
+//file SensorData.php
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;

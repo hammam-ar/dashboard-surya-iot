@@ -1,6 +1,7 @@
 @extends('layouts.main')
 
 @section('content')
+    {{--file dahboard.blade.php--}}
     <style>
         /* Transisi halus saat ganti tema */
         body { transition: background-color 0.3s, color 0.3s; }
@@ -107,9 +108,12 @@
                         </div>
                     </div>
 
+                    <!-- USB tidak diberi toggle switch, karena kontrolnya otomatis
+                         (default ON, mati saat cutoff/overheat/baterai habis) -->
                     <div class="mt-3 p-3 bg-light rounded shadow-sm border">
                         <div class="mb-1"><small class="text-muted">Relay Surya (Input): <b id="status_relay_charging" class="text-primary">{{ $dataTerbaru->s_relay_charge ?? '-' }}</b></small></div>
-                        <div><small class="text-muted">Mode Charging: <b id="status_charging" class="text-success">{{ $dataTerbaru->s_charge ?? '-' }}</b></small></div>
+                        <div class="mb-1"><small class="text-muted">Mode Charging: <b id="status_charging" class="text-success">{{ $dataTerbaru->s_charge ?? '-' }}</b></small></div>
+                        <div><small class="text-muted">Relay USB (Otomatis): <b id="status_usb" class="text-info">{{ $dataTerbaru->s_usb ?? '-' }}</b></small></div>
                     </div>
                 </div>
             </div>
@@ -248,11 +252,13 @@
                         document.getElementById('status_fan').innerText = 'Status: ' + (data.s_fan || '-');
                         document.getElementById('status_lamp1').innerText = 'Status: ' + (data.s_lamp1 || '-');
                         document.getElementById('status_lamp2').innerText = 'Status: ' + (data.s_lamp2 || '-');
+                        document.getElementById('status_usb').innerText = data.s_usb || '-'; // <-- TAMBAHAN
 
                         // Sinkronkan posisi sakelar dengan data dari server
                         document.getElementById('switch_fan').checked = (data.s_fan === 'ON');
                         document.getElementById('switch_lamp1').checked = (data.s_lamp1 === 'ON');
                         document.getElementById('switch_lamp2').checked = (data.s_lamp2 === 'ON');
+                        // Tidak ada switch_usb karena kontrolnya otomatis, bukan manual
                     }
                 })
                 .catch(err => console.error("Gagal memuat data realtime", err));

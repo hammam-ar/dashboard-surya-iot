@@ -1,5 +1,5 @@
 <?php
-
+//file SubscribeMqtt.php
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
@@ -61,6 +61,7 @@ class SubscribeMqtt extends Command
                             's_fan'          => $data['s_fan'] ?? 'OFF',
                             's_lamp1'        => $data['s_lamp1'] ?? 'OFF',
                             's_lamp2'        => $data['s_lamp2'] ?? 'OFF',
+                            's_usb'          => $data['s_usb'] ?? 'OFF', // <-- TAMBAHAN
                         ]);
                         $this->info("Data berhasil disimpan ke database!");
                     } catch (\Exception $e) {

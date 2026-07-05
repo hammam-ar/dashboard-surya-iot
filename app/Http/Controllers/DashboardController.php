@@ -1,5 +1,5 @@
 <?php
-
+//file DashboardController.php
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -197,7 +197,7 @@ class DashboardController extends Controller
             fputcsv($handle, [
                 'Waktu', 'Tegangan Input (V)', 'Tegangan Output (V)',
                 'Arus Masuk (mA)', 'Arus Keluar (mA)', 'Suhu (°C)',
-                'SoC (%)', 'Status Charge', 'Status Kipas', 'Lampu 1', 'Lampu 2'
+                'SoC (%)', 'Status Charge', 'Status Kipas', 'Lampu 1', 'Lampu 2', 'Status USB'
             ]);
 
             foreach ($query->orderBy('id', 'desc')->cursor() as $row) {
@@ -212,7 +212,8 @@ class DashboardController extends Controller
                     $row->s_charge,
                     $row->s_fan,
                     $row->s_lamp1,
-                    $row->s_lamp2
+                    $row->s_lamp2,
+                    $row->s_usb
                 ]);
             }
 
