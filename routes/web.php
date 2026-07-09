@@ -1,5 +1,5 @@
 <?php
-
+//file web.php
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
@@ -21,6 +21,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/api/history-filter', [DashboardController::class, 'historyFilter']);
     Route::post('/kontrol', [DashboardController::class, 'kontrolRelay']);
     Route::get('/history/export', [DashboardController::class, 'exportCsv']);
+    Route::get('/history/export/xlsx', [DashboardController::class, 'exportXlsx']); // <-- TAMBAHAN
 });
 
 // 3. RUTE PROFIL (Bawaan Breeze)

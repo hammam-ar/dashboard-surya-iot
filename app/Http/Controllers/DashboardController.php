@@ -8,6 +8,8 @@ use PhpMqtt\Client\MqttClient;
 use PhpMqtt\Client\ConnectionSettings;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 use Carbon\Carbon;
+use App\Exports\SensorDataExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class DashboardController extends Controller
 {
@@ -36,12 +38,18 @@ class DashboardController extends Controller
             return $item->created_at->format('H:i:s');
         });
 
+        // Format lengkap (dengan tanggal) khusus untuk ditampilkan di tooltip grafik
+        $waktuLengkap = $data->map(function ($item) {
+            return $item->created_at->format('d/m/y, H:i:s');
+        });
+
         return response()->json([
-            'waktu'        => $waktu,
-            'tegangan_in'  => $data->pluck('v_in'),
-            'tegangan_out' => $data->pluck('v_out'),
-            'arus_in'      => $data->pluck('a_in'),
-            'arus_out'     => $data->pluck('a_out')
+            'waktu'         => $waktu,
+            'waktu_lengkap' => $waktuLengkap, // <-- TAMBAHAN
+            'tegangan_in'   => $data->pluck('v_in'),
+            'tegangan_out'  => $data->pluck('v_out'),
+            'arus_in'       => $data->pluck('a_in'),
+            'arus_out'      => $data->pluck('a_out')
         ]);
     }
 
@@ -197,7 +205,7 @@ class DashboardController extends Controller
             fputcsv($handle, [
                 'Waktu', 'Tegangan Input (V)', 'Tegangan Output (V)',
                 'Arus Masuk (mA)', 'Arus Keluar (mA)', 'Suhu (°C)',
-                'SoC (%)', 'Status Charge', 'Status Kipas', 'Lampu 1', 'Lampu 2', 'Status USB'
+                'SoC (%)', 'Status Charge', 'Relay Surya (Input)', 'Status Kipas', 'Lampu 1', 'Lampu 2', 'Status USB'
             ]);
 
             foreach ($query->orderBy('id', 'desc')->cursor() as $row) {
@@ -210,6 +218,7 @@ class DashboardController extends Controller
                     $row->suhu,
                     $row->soc,
                     $row->s_charge,
+                    $row->s_relay_charge, // <-- TAMBAHAN
                     $row->s_fan,
                     $row->s_lamp1,
                     $row->s_lamp2,
@@ -224,5 +233,16 @@ class DashboardController extends Controller
         ]);
 
         return $response;
+    }
+
+    public function exportXlsx(Request $request)
+    {
+        $rentang = $request->input('rentang', '1');
+        $start   = $request->input('start');
+        $end     = $request->input('end');
+
+        $filename = "laporan_sensor_surya_" . now()->format('Ymd_His') . ".xlsx";
+
+        return Excel::download(new SensorDataExport($rentang, $start, $end), $filename);
     }
 }

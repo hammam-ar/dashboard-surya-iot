@@ -24,38 +24,38 @@
 
         <div class="row g-3">
             <div class="col-md-4">
-                <div class="card p-3 border-start border-primary border-5 shadow-sm">
+                <div class="card p-3 border-start border-5 shadow-sm" style="border-left-color: #3498db !important;">
                     <h6>Tegangan Input</h6>
                     <h3 id="tegangan_layar">{{ $dataTerbaru->v_in ?? 0 }} V</h3>
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="card p-3 border-start border-danger border-5 shadow-sm">
+                <div class="card p-3 border-start border-5 shadow-sm" style="border-left-color: #f1c40f !important;">
                     <h6>Arus Masuk</h6>
                     <h3 id="arus_layar">{{ $dataTerbaru->a_in ?? 0 }} mA</h3>
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="card p-3 border-start border-warning border-5 shadow-sm">
+                <div class="card p-3 border-start border-5 shadow-sm" style="border-left-color: #9b59b6 !important;">
                     <h6>Suhu Sistem</h6>
                     <h3 id="suhu_layar">{{ $dataTerbaru->suhu ?? 0 }} °C</h3>
                 </div>
             </div>
 
             <div class="col-md-4">
-                <div class="card p-3 border-start border-info border-5 shadow-sm">
+                <div class="card p-3 border-start border-5 shadow-sm" style="border-left-color: #e74c3c !important;">
                     <h6>Tegangan Keluar</h6>
                     <h3 id="tegangan_out_layar">{{ $dataTerbaru->v_out ?? 0 }} V</h3>
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="card p-3 border-start border-secondary border-5 shadow-sm">
+                <div class="card p-3 border-start border-5 shadow-sm" style="border-left-color: #e67e22 !important;">
                     <h6>Arus Keluar</h6>
                     <h3 id="arus_out_layar">{{ $dataTerbaru->a_out ?? 0 }} mA</h3>
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="card p-3 border-start border-success border-5 shadow-sm">
+                <div class="card p-3 border-start border-5 shadow-sm" style="border-left-color: #2ecc71 !important;">
                     <h6>Baterai (SoC)</h6>
                     <h3 id="soc_layar">{{ $dataTerbaru->soc ?? 0 }} %</h3>
                 </div>
@@ -150,7 +150,21 @@
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
-                scales: { y: { type: 'linear', display: true, position: 'left' } }
+                scales: { y: { type: 'linear', display: true, position: 'left' } },
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            title: function(context) {
+                                // Ambil tanggal lengkap sesuai index titik yang di-hover
+                                let index = context[0].dataIndex;
+                                if (riwayatDataLokal.waktu_lengkap && riwayatDataLokal.waktu_lengkap[index]) {
+                                    return riwayatDataLokal.waktu_lengkap[index];
+                                }
+                                return context[0].label;
+                            }
+                        }
+                    }
+                }
             }
         });
 
@@ -168,6 +182,12 @@
                 // Arus Mati
                 btnArus.className = 'btn btn-sm rounded-pill px-3 fw-medium text-muted transition-all';
                 btnArus.style.background = 'transparent';
+
+                // Warna disamakan dengan grafik Tegangan di halaman History
+                grafikSensor.data.datasets[0].borderColor = '#3498db';
+                grafikSensor.data.datasets[0].backgroundColor = 'rgba(52, 152, 219, 0.1)';
+                grafikSensor.data.datasets[1].borderColor = '#e74c3c';
+                grafikSensor.data.datasets[1].backgroundColor = 'rgba(231, 76, 60, 0.1)';
             } else {
                 // Tegangan Mati
                 btnTegangan.className = 'btn btn-sm rounded-pill px-3 fw-medium text-muted transition-all';
@@ -176,6 +196,12 @@
                 // Arus Aktif
                 btnArus.className = 'btn btn-sm rounded-pill px-3 fw-medium text-primary bg-white shadow-sm transition-all';
                 btnArus.style.background = '#ffffff';
+
+                // Warna disamakan dengan grafik Arus di halaman History
+                grafikSensor.data.datasets[0].borderColor = '#f1c40f';
+                grafikSensor.data.datasets[0].backgroundColor = 'rgba(241, 196, 15, 0.15)';
+                grafikSensor.data.datasets[1].borderColor = '#e67e22';
+                grafikSensor.data.datasets[1].backgroundColor = 'rgba(230, 126, 34, 0.15)';
             }
 
             renderGrafik();

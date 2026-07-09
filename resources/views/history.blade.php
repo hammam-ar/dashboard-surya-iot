@@ -1,6 +1,7 @@
 @extends('layouts.main')
 
 @section('content')
+    {{--file history.blade.php--}}
     <style>
         /* === PENYESUAIAN TABEL UNTUK DARK MODE === */
         html.dark-mode .table {
@@ -148,7 +149,7 @@
             <div class="p-3 bg-light border-bottom d-flex flex-wrap justify-content-between align-items-center gap-2">
                 <h6 class="m-0 fw-bold">Tabel Data (100 Baris Terakhir)</h6>
                 <button class="btn btn-success btn-sm shadow-sm rounded-pill px-3" onclick="downloadLaporan()">
-                    <i class="fa fa-file-excel me-1"></i> Unduh Laporan (.CSV)
+                    <i class="fa fa-file-excel me-1"></i> Unduh Laporan (.XLSX)
                 </button>
             </div>
             <div class="table-responsive" style="max-height: 400px; overflow-y: auto;">
@@ -348,7 +349,7 @@
         ambilDataHistory();
 
         function downloadLaporan() {
-            let url = `/history/export?rentang=${aktifWaktu}`;
+            let url = `/history/export/xlsx?rentang=${aktifWaktu}`;
 
             if (aktifWaktu === 'custom') {
                 let start = document.getElementById('startDate').value;
