@@ -165,12 +165,21 @@
         </a>
 
         <hr class="text-secondary">
-        <form method="POST" action="{{ route('logout') }}" class="m-0">
-            @csrf
-            <a href="{{ route('logout') }}" onclick="event.preventDefault(); this.closest('form').submit();" class="nav-link text-danger p-2">
-                <i class="fa fa-sign-out-alt me-2"></i> <span class="menu-text">Keluar</span>
+
+        @auth
+            <!-- 🔒 Jika pengguna sudah login, tampilkan tombol Keluar asli -->
+            <form method="POST" action="{{ route('logout') }}" class="m-0">
+                @csrf
+                <a href="{{ route('logout') }}" onclick="event.preventDefault(); this.closest('form').submit();" class="nav-link text-danger p-2">
+                    <i class="fa fa-sign-out-alt me-2"></i> <span class="menu-text">Keluar</span>
+                </a>
+            </form>
+        @else
+            <!-- 🔓 Jika bertindak sebagai TAMU, tampilkan tombol Login berwarna biru -->
+            <a href="{{ route('login') }}" class="nav-link text-primary fw-bold p-2">
+                <i class="fa fa-sign-in-alt me-2"></i> <span class="menu-text">Login</span>
             </a>
-        </form>
+        @endauth
     </div>
 
     <div class="content flex-grow-1 p-3 p-md-4 bg-light w-100" style="overflow-y: auto; height: calc(100vh - 56px);">

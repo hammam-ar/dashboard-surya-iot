@@ -228,6 +228,19 @@
 
         // === FUNGSI KONTROL BEBAN UNTUK TOGGLE SWITCH ===
         function kirimPerintahToggle(perangkat, isChecked) {
+            // Memeriksa status login pengguna lewat variabel Blade Laravel
+            let isLoggedIn = {{ Auth::check() ? 'true' : 'false' }};
+
+            if (!isLoggedIn) {
+                // Tampilkan notifikasi peringatan manis ke layar tamu
+                alert("Login diperlukan untuk mengontrol relay!");
+
+                // Paksa posisi sakelar di layar kembali ke posisi semula agar tidak bergeser
+                document.getElementById('switch_' + perangkat).checked = !isChecked;
+                return false;
+            }
+
+            // --- JIKA SUDAH LOGIN, PROSES ASLI DI BAWAH INI AKAN DIJALANKAN ---
             let status = isChecked ? 'ON' : 'OFF';
             let token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
